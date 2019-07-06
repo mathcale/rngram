@@ -1,5 +1,11 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 import styles from './styles';
@@ -11,6 +17,18 @@ const FeedItem = props => {
 
   const avatar = require(`../../assets/images/mock-posts/avatar.png`);
   const _photo = require(`../../assets/images/mock-posts/mock-posts-1.jpg`);
+
+  const [lastTap, setLastTap] = useState(null);
+
+  const handleDoubleTap = () => {
+    const now = Date.now();
+
+    if (lastTap && (now - lastTap) < 300) {
+      alert('double tap!');
+    } else {
+      setLastTap(now);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -28,7 +46,9 @@ const FeedItem = props => {
       </View>
 
       <View style={styles.photoContainer}>
-        <Image source={_photo} style={styles.photo} resizeMode="cover" />
+        <TouchableWithoutFeedback onPress={handleDoubleTap}>
+          <Image source={_photo} style={styles.photo} resizeMode="cover" />
+        </TouchableWithoutFeedback>
       </View>
 
       <View style={styles.interactionsContainer}>
