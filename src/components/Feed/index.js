@@ -2,31 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 
 import FeedItem from '../FeedItem';
+import StoriesList from '../StoriesList';
+import PostsNotFound from '../PostsNotFound';
+
+import { feed } from '../../mocks';
 
 const Feed = props => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    setPosts([
-      {
-        id: 1,
-        user: { username: 'cale_matheus', avatar: 'avatar.png', hasStories: false },
-        photo: 'mock-posts-1.jpg',
-        stats: {
-          description: 'Cabana',
-          likes: 1500,
-          comments: 182
-        },
-        posted_at: '2 dias atrás'
-      }
-    ])
-  }, [])
+    setPosts(feed);
+  }, []);
 
   return (
     <ScrollView>
-      {posts.map(post => (
-        <FeedItem key={post.id} post={post} />
-      ))}
+      <StoriesList />
+
+      {posts.length > 0 ?
+        posts.map(post => (
+          <FeedItem key={post.id} post={post} />
+        ))
+      :
+        <PostsNotFound />
+      }
     </ScrollView>
   );
 }

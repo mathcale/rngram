@@ -19,7 +19,7 @@ import { colors } from '../../utils';
 const FeedItem = props => {
   const { user, photo, stats, posted_at } = props.post;
 
-  const avatar = require(`../../assets/images/mock-posts/avatar.png`);
+  const avatar = require(`../../assets/images/mock-posts/avatar.jpg`);
   const _photo = require(`../../assets/images/mock-posts/mock-posts-1.jpg`);
 
   const [lastTap, setLastTap] = useState(null);
