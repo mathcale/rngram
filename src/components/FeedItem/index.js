@@ -3,10 +3,14 @@ import {
   View,
   Text,
   Image,
+  ImageBackground,
   TouchableOpacity,
   TouchableWithoutFeedback
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+
+import * as Animatable from 'react-native-animatable';
+const AnimatedIcon = Animatable.createAnimatableComponent(Icon)
 
 import styles from './styles';
 
@@ -19,12 +23,21 @@ const FeedItem = props => {
   const _photo = require(`../../assets/images/mock-posts/mock-posts-1.jpg`);
 
   const [lastTap, setLastTap] = useState(null);
+  const [showBigLike, setShowBigLike] = useState(false);
 
   const handleDoubleTap = () => {
     const now = Date.now();
 
     if (lastTap && (now - lastTap) < 300) {
-      alert('double tap!');
+      setShowBigLike(true);
+
+      setTimeout(() => {
+        this.animatedIcon.fadeOut(300)
+          .then(endState => {
+            endState.finished &&
+              setShowBigLike(false);
+          });
+      }, 500);
     } else {
       setLastTap(now);
     }
@@ -47,7 +60,21 @@ const FeedItem = props => {
 
       <View style={styles.photoContainer}>
         <TouchableWithoutFeedback onPress={handleDoubleTap}>
-          <Image source={_photo} style={styles.photo} resizeMode="cover" />
+          <ImageBackground source={_photo} style={styles.photo} resizeMode="cover">
+            {showBigLike &&
+              <AnimatedIcon
+                ref={animatedIcon => {
+                  this.animatedIcon = animatedIcon
+                }}
+                name="heart"
+                size={128}
+                color={colors.white}
+                animation="zoomIn"
+                duration={300}
+                style={styles.bigLike}
+              />
+            }
+          </ImageBackground>
         </TouchableWithoutFeedback>
       </View>
 

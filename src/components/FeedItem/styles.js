@@ -30,12 +30,28 @@ export default StyleSheet.create({
     marginRight: 5
   },
   photoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
   },
   photo: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     height: 350,
+  },
+  bigLike: {
+    textShadowColor: '#eee',
+    textShadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 2,
+    textShadowRadius: 3.84,
+    elevation: 5,
   },
   interactionsContainer: {
     flex: 1,
