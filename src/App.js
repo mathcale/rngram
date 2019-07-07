@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import { Home } from './screens';
-import { Icon } from './components';
+import { Navbar } from './components';
 import { colors } from './utils';
 
 const Navigator = createStackNavigator(
@@ -16,4 +16,15 @@ const Navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(Navigator);
+const AppContainer = createAppContainer(Navigator);
+
+export default class App extends Component {
+  render() {
+    return (
+      <>
+        <AppContainer />
+        <Navbar />
+      </>
+    )
+  }
+}
